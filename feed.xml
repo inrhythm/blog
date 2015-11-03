@@ -5,9 +5,68 @@
     <atom:link href="http://localhost:8080/feed.xml" rel="self" type="application/rss+xml"></atom:link>
     <link>http://localhost:8080</link>
     <description>High Velocity Insights</description>
-    <pubDate>Mon, 29 Apr 2013 20:00:00 -0400</pubDate>
+    <pubDate>Tue, 03 Nov 2015 10:00:00 -0500</pubDate>
     <generator>Wintersmith - https://github.com/jnordberg/wintersmith</generator>
     <language>en</language>
+    <item>
+      <title>Goodbye</title>
+      <link>http://localhost:8080/blog/articles/heyhey/</link>
+      <pubDate>Tue, 03 Nov 2015 10:00:00 -0500</pubDate>
+      <guid isPermaLink="true">http://localhost:8080/blog/articles/heyhey/</guid>
+      <author></author>
+      <description>&lt;p&gt;hello&lt;/p&gt;
+</description>
+    </item>
+    <item>
+      <title>Nothing is Impossible - Making the Switch from ES5 to ES6</title>
+      <link>http://localhost:8080/blog/articles/switching-from-es5-to-es6/</link>
+      <pubDate>Sat, 15  Aug 2015 10:00:00 -0400</pubDate>
+      <guid isPermaLink="true">http://localhost:8080/blog/articles/switching-from-es5-to-es6/</guid>
+      <author></author>
+      <description>&lt;p&gt;I have been writing javascript for about a decade now. When I first saw ES6, it felt like JavaScript had been empowered with so many new functionalities, I just had to rewrite everything to ES6. Once I actually begun that process it was tricky in the existing code base and not possible to rewrite everything using pure ES6 functionalities. I took a step back and decided to start with a smaller subset of ES6 features - class, let/const, lexical scoping, and object. Here’s what I learned along the way.&lt;/p&gt;
+&lt;p&gt;&lt;span class=&quot;more&quot;&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Before getting started you need to prepare the development environment with tools to help write code is ES6, I used gulp (Grunt is also a good choice) to build files. Here’s some Gulp plugins you can install to get started with compiling ES6 to ES5 compatibility versions.&lt;/p&gt;
+&lt;h1 id=&quot;gulp-plugins&quot;&gt;Gulp Plugins&lt;/h1&gt;
+&lt;p&gt;ESLint (&lt;a href=&quot;https://www.npmjs.com/package/gulp-eslint/&quot;&gt;gulp-eslint&lt;/a&gt;) - An open source project which helps validate your ES6 javascript files and also lets you configure rules in a lint file &lt;a href=&quot;https://github.com/jskungfu/linters/blob/master/.eslintrc&quot;&gt;.eslintrc&lt;/a&gt; in order to target ES6 features as per your needs.&lt;/p&gt;
+&lt;p&gt;Babel transpiler (&lt;a href=&quot;https://www.npmjs.com/package/gulp-babel&quot;&gt;gulp-babel&lt;/a&gt;) - There many browsers which do not support ES6 so we need to transforms ES6 code back down to ES5.&lt;/p&gt;
+&lt;p&gt;Gulp Concat (&lt;a href=&quot;https://www.npmjs.com/package/gulp-concat&quot;&gt;gulp-concat&lt;/a&gt;) - Used to output all of our JavaScript files as one.&lt;/p&gt;
+&lt;h1 id=&quot;gulp-script&quot;&gt;Gulp Script&lt;/h1&gt;
+&lt;p&gt;Here is a gulp script to get started:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;
+&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; gulp = &lt;span class=&quot;built_in&quot;&gt;require&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;'gulp'&lt;/span&gt;);
+&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; babel = &lt;span class=&quot;built_in&quot;&gt;require&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;'gulp-babel'&lt;/span&gt;);
+&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; concat = &lt;span class=&quot;built_in&quot;&gt;require&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;'gulp-concat'&lt;/span&gt;);
+&lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; eslint = &lt;span class=&quot;built_in&quot;&gt;require&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;'gulp-eslint'&lt;/span&gt;);
+
+&lt;span class=&quot;comment&quot;&gt;//Register compilation task&lt;/span&gt;
+gulp.task(&lt;span class=&quot;string&quot;&gt;'compile'&lt;/span&gt;, &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;) &lt;/span&gt;{
+  &lt;span class=&quot;comment&quot;&gt;// place code for your default task here&lt;/span&gt;
+  &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; gulp.src([
+    &lt;span class=&quot;string&quot;&gt;'src/libs/file1.js'&lt;/span&gt;,
+    &lt;span class=&quot;string&quot;&gt;'src/libs/file2.js'&lt;/span&gt;,
+    &lt;span class=&quot;string&quot;&gt;'src/xxx.js'&lt;/span&gt;,
+    &lt;span class=&quot;string&quot;&gt;'src/yyyy.js'&lt;/span&gt;
+  ])
+  &lt;span class=&quot;comment&quot;&gt;// eslint() attaches the lint output to the eslint property&lt;/span&gt;
+  &lt;span class=&quot;comment&quot;&gt;// of the file object so it can be used by other modules.&lt;/span&gt;
+  .pipe(eslint({
+      &lt;span class=&quot;string&quot;&gt;&quot;useEslintrc&quot;&lt;/span&gt;: &lt;span class=&quot;literal&quot;&gt;true&lt;/span&gt;
+  }))
+  &lt;span class=&quot;comment&quot;&gt;//eslint.format() outputs the lint results to the console.&lt;/span&gt;
+  &lt;span class=&quot;comment&quot;&gt;// Alternatively use eslint.formatEach() (seeDocs).&lt;/span&gt;
+  .pipe(eslint.format())
+  .pipe(babel({
+    &lt;span class=&quot;string&quot;&gt;&quot;sourceMaps&quot;&lt;/span&gt;: &lt;span class=&quot;literal&quot;&gt;false&lt;/span&gt;
+  }))
+  .pipe(concat(&lt;span class=&quot;string&quot;&gt;'yourfilename-concat.js'&lt;/span&gt;))
+  .pipe(gulp.dest(&lt;span class=&quot;string&quot;&gt;'dist'&lt;/span&gt;));
+});
+
+&lt;span class=&quot;comment&quot;&gt;//Register default task&lt;/span&gt;
+gulp.task(&lt;span class=&quot;string&quot;&gt;'default'&lt;/span&gt;, [&lt;span class=&quot;string&quot;&gt;'compile'&lt;/span&gt;]);
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
     <item>
       <title>README</title>
       <link>http://localhost:8080/blog/articles/hello-world/</link>
@@ -102,103 +161,6 @@ Or else the banana’s will kill you and me.
 We must take up arms, and fight to the end.
 Because, believe it or not, a banana is not a friend.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;/blog/articles/red-herring/banana.png&quot; alt=&quot;a banana&quot;&gt;&lt;/p&gt;
-</description>
-    </item>
-    <item>
-      <title>Code and stuff!</title>
-      <link>http://localhost:8080/blog/articles/another-test/</link>
-      <pubDate>Mon, 01 Oct 2012 15:00:00 -0400</pubDate>
-      <guid isPermaLink="true">http://localhost:8080/blog/articles/another-test/</guid>
-      <author></author>
-      <description>&lt;p&gt;Syntax highlighting with &lt;a href=&quot;http://softwaremaniacs.org/soft/highlight/en/&quot;&gt;highlight.js&lt;/a&gt;.
-The theme used is tomorrow, you can find more themes &lt;a href=&quot;http://jmblog.github.io/color-themes-for-highlightjs/&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;span class=&quot;more&quot;&gt;&lt;/span&gt;&lt;/p&gt;
-&lt;h3 id=&quot;javascript&quot;&gt;JavaScript&lt;/h3&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;getRandomNumber&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;) &lt;/span&gt;{
-    &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;4&lt;/span&gt;; &lt;span class=&quot;comment&quot;&gt;// chosen by fair dice roll.&lt;/span&gt;
-              &lt;span class=&quot;comment&quot;&gt;// guaranteed to be random.&lt;/span&gt;
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h3 id=&quot;coffeescript&quot;&gt;CoffeeScript&lt;/h3&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-coffeescript&quot;&gt;&lt;span class=&quot;class&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;Animal&lt;/span&gt;&lt;/span&gt;
-  &lt;span class=&quot;comment&quot;&gt;### Intellegent design ###&lt;/span&gt;
-  &lt;span class=&quot;attribute&quot;&gt;getDNA&lt;/span&gt;: &lt;span class=&quot;function&quot;&gt;-&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;built_in&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;'sequencing...'&lt;/span&gt;
-    &lt;span class=&quot;keyword&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;literal&quot;&gt;true&lt;/span&gt;
-      sleep &lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;
-
-&lt;span class=&quot;class&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;Monkey&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;Animal&lt;/span&gt;&lt;/span&gt;
-  &lt;span class=&quot;attribute&quot;&gt;speak&lt;/span&gt;: &lt;span class=&quot;function&quot;&gt;-&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;built_in&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;'ah ah ah'&lt;/span&gt;
-
-&lt;span class=&quot;class&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;Human&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;Monkey&lt;/span&gt;&lt;/span&gt;
-  &lt;span class=&quot;attribute&quot;&gt;speak&lt;/span&gt;: &lt;span class=&quot;function&quot;&gt;-&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;built_in&quot;&gt;print&lt;/span&gt; [&lt;span class=&quot;string&quot;&gt;'yolo'&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;unless&lt;/span&gt; i % &lt;span class=&quot;number&quot;&gt;3&lt;/span&gt;] + [&lt;span class=&quot;string&quot;&gt;'swag'&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;unless&lt;/span&gt; i % &lt;span class=&quot;number&quot;&gt;5&lt;/span&gt;] &lt;span class=&quot;keyword&quot;&gt;or&lt;/span&gt; i &lt;span class=&quot;keyword&quot;&gt;for&lt;/span&gt; i &lt;span class=&quot;keyword&quot;&gt;in&lt;/span&gt; [&lt;span class=&quot;number&quot;&gt;1.&lt;/span&gt;&lt;span class=&quot;number&quot;&gt;.100&lt;/span&gt;]
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h3 id=&quot;c&quot;&gt;C&lt;/h3&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-c&quot;&gt;&lt;span class=&quot;preprocessor&quot;&gt;#&lt;span class=&quot;keyword&quot;&gt;include&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&amp;lt;stdio.h&amp;gt;&lt;/span&gt;&lt;/span&gt;
-
-&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(&lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt;)&lt;/span&gt;
-&lt;/span&gt;{
-  &lt;span class=&quot;built_in&quot;&gt;printf&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;&quot;Hello world\n&quot;&lt;/span&gt;);
-  &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;;
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h3 id=&quot;c-&quot;&gt;C++&lt;/h3&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-cpp&quot;&gt;&lt;span class=&quot;preprocessor&quot;&gt;#&lt;span class=&quot;keyword&quot;&gt;include&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&amp;lt;iostream&amp;gt;&lt;/span&gt;&lt;/span&gt;
-
-&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;()&lt;/span&gt;
-&lt;/span&gt;{
-  &lt;span class=&quot;built_in&quot;&gt;std&lt;/span&gt;::&lt;span class=&quot;built_in&quot;&gt;cout&lt;/span&gt; &amp;lt;&amp;lt; &lt;span class=&quot;string&quot;&gt;&quot;Hello World!&quot;&lt;/span&gt; &amp;lt;&amp;lt; &lt;span class=&quot;built_in&quot;&gt;std&lt;/span&gt;::endl;
-  &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;;
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h3 id=&quot;c-sharp&quot;&gt;C-sharp&lt;/h3&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-cs&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;ExampleClass&lt;/span&gt;
-{
-    &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;Main&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;)
-    &lt;/span&gt;{
-        System.Console.WriteLine(&lt;span class=&quot;string&quot;&gt;&quot;Hello, world!&quot;&lt;/span&gt;);
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h3 id=&quot;erlang&quot;&gt;Erlang&lt;/h3&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-erlang&quot;&gt;io:format(&lt;span class=&quot;string&quot;&gt;&quot;~s~n&quot;&lt;/span&gt;, [&lt;span class=&quot;string&quot;&gt;&quot;hello, world&quot;&lt;/span&gt;])
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h3 id=&quot;go&quot;&gt;Go&lt;/h3&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-go&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;package&lt;/span&gt; main
-
-&lt;span class=&quot;keyword&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&quot;fmt&quot;&lt;/span&gt;
-
-&lt;span class=&quot;keyword&quot;&gt;func&lt;/span&gt; main() {
-   fmt.Println(&lt;span class=&quot;string&quot;&gt;&quot;Hello World!&quot;&lt;/span&gt;)
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h3 id=&quot;java&quot;&gt;Java&lt;/h3&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-java&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;class&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;HelloWorld&lt;/span&gt; &lt;/span&gt;{
-   &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(String[] args)&lt;/span&gt; &lt;/span&gt;{
-       System.out.println(&lt;span class=&quot;string&quot;&gt;&quot;Hello world!&quot;&lt;/span&gt;);
-   }
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h3 id=&quot;objectivec&quot;&gt;ObjectiveC&lt;/h3&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-objectivec&quot;&gt;&lt;span class=&quot;preprocessor&quot;&gt;#import &lt;span class=&quot;title&quot;&gt;&amp;lt;stdio.h&amp;gt;&lt;/span&gt;&lt;/span&gt;
-
-&lt;span class=&quot;keyword&quot;&gt;int&lt;/span&gt; main(&lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt;)
-{
-    printf(&lt;span class=&quot;string&quot;&gt;&quot;Hello, World!\n&quot;&lt;/span&gt;);
-    &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;;
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h3 id=&quot;php&quot;&gt;PHP&lt;/h3&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-php&quot;&gt;&lt;span class=&quot;preprocessor&quot;&gt;&amp;lt;?php&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;'Hello, world'&lt;/span&gt;; &lt;span class=&quot;preprocessor&quot;&gt;?&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h3 id=&quot;python&quot;&gt;Python&lt;/h3&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-python&quot;&gt;print(&lt;span class=&quot;string&quot;&gt;&quot;Hello World&quot;&lt;/span&gt;)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h3 id=&quot;ruby&quot;&gt;Ruby&lt;/h3&gt;
-&lt;pre&gt;&lt;code class=&quot;lang-ruby&quot;&gt;puts &lt;span class=&quot;string&quot;&gt;&quot;Hello world!&quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>
     <item>

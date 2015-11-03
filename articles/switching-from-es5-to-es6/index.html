@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width">
+    <title>Nothing is Impossible - Making the Switch from ES5 to ES6 - InRhythm's Blog
+    </title>
+    <link rel="alternate" href="http://localhost:8080/feed.xml" type="application/rss+xml" title="High Velocity Insights">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic|Anonymous+Pro:400,700,400italic,700italic|Merriweather:400,700,300">
+    <link rel="stylesheet" href="/blog/css/main.css">
+  </head>
+  <body class="article-detail">
+    <header class="header">
+      <div class="content-wrap">
+        <h1>Nothing is Impossible - Making the Switch from ES5 to ES6</h1>
+        <p class="author">Written by <span class="author">Hetal Thakkar</span>
+        </p>
+      </div>
+    </header>
+    <div id="content">
+      <div class="content-wrap">
+        <article class="article">
+          <section class="content"><p>I have been writing javascript for about a decade now. When I first saw <span class="caps">ES6</span>, it felt like JavaScript had been empowered with so many new functionalities, I just had to rewrite everything to ES6. Once I actually begun that process it was tricky in the existing code base and not possible to rewrite everything using pure ES6 functionalities. I took a step back and decided to start with a smaller subset of ES6 features - class, let/const, lexical scoping, and object. Here’s what I learned along the&nbsp;way.</p>
+<p><span class="more"></span></p>
+<p>Before getting started you need to prepare the development environment with tools to help write code is <span class="caps">ES6</span>, I used gulp (Grunt is also a good choice) to build files. Here’s some Gulp plugins you can install to get started with compiling ES6 to ES5 compatibility&nbsp;versions.</p>
+<h1 id="gulp-plugins">Gulp&nbsp;Plugins</h1>
+<p>ESLint (<a href="https://www.npmjs.com/package/gulp-eslint/">gulp-eslint</a>) - An open source project which helps validate your <span class="caps">ES6</span> javascript files and also lets you configure rules in a lint file <a href="https://github.com/jskungfu/linters/blob/master/.eslintrc">.eslintrc</a> in order to target <span class="caps">ES6</span> features as per your&nbsp;needs.</p>
+<p>Babel transpiler (<a href="https://www.npmjs.com/package/gulp-babel">gulp-babel</a>) - There many browsers which do not support <span class="caps">ES6</span> so we need to transforms ES6 code back down to&nbsp;ES5.</p>
+<p>Gulp Concat (<a href="https://www.npmjs.com/package/gulp-concat">gulp-concat</a>) - Used to output all of our JavaScript files as&nbsp;one.</p>
+<h1 id="gulp-script">Gulp&nbsp;Script</h1>
+<p>Here is a gulp script to get&nbsp;started:</p>
+<pre><code class="lang-javascript">
+<span class="keyword">var</span> gulp = <span class="built_in">require</span>(<span class="string">'gulp'</span>);
+<span class="keyword">var</span> babel = <span class="built_in">require</span>(<span class="string">'gulp-babel'</span>);
+<span class="keyword">var</span> concat = <span class="built_in">require</span>(<span class="string">'gulp-concat'</span>);
+<span class="keyword">var</span> eslint = <span class="built_in">require</span>(<span class="string">'gulp-eslint'</span>);
+
+<span class="comment">//Register compilation task</span>
+gulp.task(<span class="string">'compile'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
+  <span class="comment">// place code for your default task here</span>
+  <span class="keyword">return</span> gulp.src([
+    <span class="string">'src/libs/file1.js'</span>,
+    <span class="string">'src/libs/file2.js'</span>,
+    <span class="string">'src/xxx.js'</span>,
+    <span class="string">'src/yyyy.js'</span>
+  ])
+  <span class="comment">// eslint() attaches the lint output to the eslint property</span>
+  <span class="comment">// of the file object so it can be used by other modules.</span>
+  .pipe(eslint({
+      <span class="string">"useEslintrc"</span>: <span class="literal">true</span>
+  }))
+  <span class="comment">//eslint.format() outputs the lint results to the console.</span>
+  <span class="comment">// Alternatively use eslint.formatEach() (seeDocs).</span>
+  .pipe(eslint.format())
+  .pipe(babel({
+    <span class="string">"sourceMaps"</span>: <span class="literal">false</span>
+  }))
+  .pipe(concat(<span class="string">'yourfilename-concat.js'</span>))
+  .pipe(gulp.dest(<span class="string">'dist'</span>));
+});
+
+<span class="comment">//Register default task</span>
+gulp.task(<span class="string">'default'</span>, [<span class="string">'compile'</span>]);
+</code></pre>
+</section>
+        </article>
+      </div>
+    </div>
+    <footer>
+      <div class="content-wrap">
+        <div class="nav"><a href="/blog/">« Full blog</a></div>
+        <section class="about"><p>InRhythm is a high-growth, New York based, technology consulting firm focused on high velocity software development through lean UX, software engineering and agile delivery services. </p>
+<p>We’ve helped over 100 teams launch over 50 products for leading companies in financial services, education, consumer and media industries. </p>
+<p>Our team of A+ thought leaders don’t just join us for a job, they join us to do what they love. </p>
+<p>It’s that passion that has helped us grow over 300% year over year, and consistently deliver on our commitment to help our clients develop better, faster and in rhythm – all while having loads of fun.</p>
+
+        </section>
+        <section class="copy">
+          <p>&copy; 2015 InRhythm</p>
+        </section>
+      </div>
+    </footer>
+  </body>
+</html>
