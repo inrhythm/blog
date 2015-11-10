@@ -5,16 +5,18 @@
     <atom:link href="http://localhost:8080/feed.xml" rel="self" type="application/rss+xml"></atom:link>
     <link>http://localhost:8080</link>
     <description>High Velocity Insights</description>
-    <pubDate>Tue, 03 Nov 2015 10:00:00 -0500</pubDate>
+    <pubDate>Thu, 01 Oct 2015 20:00:00 -0400</pubDate>
     <generator>Wintersmith - https://github.com/jnordberg/wintersmith</generator>
     <language>en</language>
     <item>
-      <title>Goodbye</title>
-      <link>http://localhost:8080/blog/articles/heyhey/</link>
-      <pubDate>Tue, 03 Nov 2015 10:00:00 -0500</pubDate>
-      <guid isPermaLink="true">http://localhost:8080/blog/articles/heyhey/</guid>
+      <title>Big Dude</title>
+      <link>http://localhost:8080/blog/articles/big-dude/</link>
+      <pubDate>Thu, 01 Oct 2015 20:00:00 -0400</pubDate>
+      <guid isPermaLink="true">http://localhost:8080/blog/articles/big-dude/</guid>
       <author></author>
-      <description>&lt;p&gt;hello&lt;/p&gt;
+      <description>&lt;p&gt;Foo&lt;/p&gt;
+&lt;p&gt;&lt;span class=&quot;more&quot;&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Bar&lt;/p&gt;
 </description>
     </item>
     <item>
